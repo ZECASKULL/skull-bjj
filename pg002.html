@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formulário de inscrição na SKULL BJJ Academy">
+    <meta name="keywords" content="inscrição, cadastro, skull bjj, jiu-jitsu">
+    <meta name="author" content="SKULL BJJ">
+    
+    <title>Inscrição - SKULL BJJ Academy</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="store-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <h1 class="store-logo">💀 SKULL BJJ</h1>
+                <p class="store-tagline">Seja Seu Melhor</p>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Voltar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title">FAÇA SUA INSCRIÇÃO</h2>
+            <p class="hero-subtitle">Dê o primeiro passo para se tornar um campeão</p>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <main class="main-content" role="main">
+        <section class="registration-section">
+            <div class="registration-container">
+                <div class="registration-header">
+                    <h2 class="registration-title">Faça seu Cadastro</h2>
+                    <p class="registration-subtitle">Preencha o formulário abaixo para iniciar sua jornada no Jiu-Jitsu</p>
+                </div>
+
+                <form id="registrationForm" class="registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome" class="form-label">Nome Completo *</label>
+                            <input type="text" id="nome" name="nome" class="form-input" placeholder="Digite seu nome completo" required>
+                            <span class="form-error" id="nome-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">E-mail *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" required>
+                            <span class="form-error" id="email-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefone" class="form-label">Telefone *</label>
+                            <input type="tel" id="telefone" name="telefone" class="form-input" placeholder="(XX) XXXXX-XXXX" required>
+                            <span class="form-error" id="telefone-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="idade" class="form-label">Idade *</label>
+                            <input type="number" id="idade" name="idade" class="form-input" placeholder="Sua idade" min="6" max="100" required>
+                            <span class="form-error" id="idade-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experiencia" class="form-label">Experiência em Jiu-Jitsu</label>
+                            <select id="experiencia" name="experiencia" class="form-select">
+                                <option value="">Selecione uma opção</option>
+                                <option value="nenhuma">Nenhuma experiência</option>
+                                <option value="iniciante">Iniciante (até 6 meses)</option>
+                                <option value="intermediario">Intermediário (6 meses - 2 anos)</option>
+                                <option value="avancado">Avançado (mais de 2 anos)</option>
+                                <option value="competidor">Competidor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="objetivo" class="form-label">Seu Objetivo Principal</label>
+                            <textarea id="objetivo" name="objetivo" class="form-textarea" placeholder="Conte um pouco sobre seus objetivos no Jiu-Jitsu..." rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="termos" name="termos" class="checkbox" required>
+                                <span>Li e aceito os <a href="#" class="terms-link">termos de uso</a> e <a href="#" class="terms-link">política de privacidade</a></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button" id="submitButton">
+                            <span class="button-text">Cadastrar</span>
+                            <span class="button-loading" style="display: none;">⏳</span>
+                        </button>
+                        <button type="button" class="back-button" onclick="window.location.href='index.html'">
+                            Voltar para Home
+                        </button>
+                    </div>
+                </form>
+
+                <div id="mensagem" class="form-message"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="store-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SKULL BJJ</h3>
+                <p>Academia de Jiu-Jitsu com foco em qualidade, técnica e resultados.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>📧 jao10carlitus@gmail.com</p>
+                <p>📱 (91) 98396-2663</p>
+                <p>📍 Passagem Guimarães, 32</p>
+            </div>
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SKULL BJJ. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="security.js"></script>
+    <script>
+        // Validação do formulário
+        function validarFormulario(event) {
+            event.preventDefault();
+            
+            let nome = document.getElementById("nome").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let telefone = document.getElementById("telefone").value.trim();
+            let idade = document.getElementById("idade").value;
+            let termos = document.getElementById("termos").checked;
+            let mensagem = document.getElementById("mensagem");
+            
+            // Limpar mensagens anteriores
+            limparErros();
+            
+            let isValid = true;
+            
+            // Validação do nome
+            if (nome.length < 3) {
+                mostrarErro("nome", "Nome muito curto! Mínimo 3 caracteres.");
+                isValid = false;
+            }
+            
+            // Validação do email
+            if (!validarEmail(email)) {
+                mostrarErro("email", "E-mail inválido!");
+                isValid = false;
+            }
+            
+            // Validação do telefone
+            if (!validarTelefone(telefone)) {
+                mostrarErro("telefone", "Telefone inválido! Use formato (XX) XXXXX-XXXX.");
+                isValid = false;
+            }
+            
+            // Validação da idade
+            if (idade < 6 || idade > 100) {
+                mostrarErro("idade", "Idade deve estar entre 6 e 100 anos.");
+                isValid = false;
+            }
+            
+            // Validação dos termos
+            if (!termos) {
+                mensagem.innerHTML = "Você precisa aceitar os termos de uso!";
+                mensagem.style.color = "#e74c3c";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Simular envio do formulário
+                enviarFormulario();
+            }
+            
+            return false;
+        }
+        
+        function validarEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+        
+        function validarTelefone(telefone) {
+            const regex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+            return regex.test(telefone);
+        }
+        
+        function mostrarErro(campo, mensagem) {
+            const erroElement = document.getElementById(campo + "-error");
+            const inputElement = document.getElementById(campo);
+            
+            if (erroElement) {
+                erroElement.textContent = mensagem;
+                erroElement.style.display = "block";
+            }
+            
+            if (inputElement) {
+                inputElement.classList.add("error");
+            }
+        }
+        
+        function limparErros() {
+            const erros = document.querySelectorAll(".form-error");
+            erros.forEach(erro => {
+                erro.textContent = "";
+                erro.style.display = "none";
+            });
+            
+            const inputs = document.querySelectorAll(".form-input");
+            inputs.forEach(input => {
+                input.classList.remove("error");
+            });
+        }
+        
+        function enviarFormulario() {
+            const submitButton = document.getElementById("submitButton");
+            const buttonText = submitButton.querySelector(".button-text");
+            const loadingIcon = submitButton.querySelector(".button-loading");
+            const mensagem = document.getElementById("mensagem");
+            
+            // Estado de carregamento
+            submitButton.disabled = true;
+            buttonText.style.display = "none";
+            loadingIcon.style.display = "inline";
+            
+            // Simular envio (2 segundos)
+            setTimeout(() => {
+                submitButton.disabled = false;
+                buttonText.style.display = "inline";
+                loadingIcon.style.display = "none";
+                
+                mensagem.innerHTML = "✅ Cadastro realizado com sucesso! Entraremos em contato em breve.";
+                mensagem.style.color = "#27ae60";
+                mensagem.style.display = "block";
+                
+                // Limpar formulário
+                document.getElementById("registrationForm").reset();
+                
+                // Redirecionar após 3 segundos
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 3000);
+            }, 2000);
+        }
+        
+        // Formatar telefone automaticamente
+        document.getElementById("telefone").addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, "");
+            
+            if (value.length >= 2) {
+                value = "(" + value.substring(0, 2) + ")";
+                if (value.length >= 7) {
+                    value += " " + value.substring(2, 7);
+                    if (value.length >= 12) {
+                        value += "-" + value.substring(7, 11);
+                    }
+                }
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Adicionar evento de submit ao formulário
+        document.getElementById("registrationForm").addEventListener("submit", validarFormulario);
+    </script>
+</body>
+</html>

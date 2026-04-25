@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crie sua conta na SKULL BJJ Academy">
+    <meta name="keywords" content="cadastro, registro, skull bjj, jiu-jitsu">
+    <meta name="author" content="SKULL BJJ">
+    
+    <title>Cadastro - SKULL BJJ Academy</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+</head>
+<body class="auth-page">
+    <!-- Background Pattern -->
+    <div class="auth-background">
+        <div class="background-pattern"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="auth-container">
+        <div class="auth-card">
+            <!-- Header -->
+            <header class="auth-header">
+                <div class="logo-section">
+                    <h1 class="auth-logo">💀 SKULL BJJ</h1>
+                    <p class="auth-tagline">Seja Seu Melhor</p>
+                </div>
+                <h2 class="auth-title">Criar Conta</h2>
+                <p class="auth-subtitle">Junte-se à família SKULL BJJ</p>
+            </header>
+
+            <!-- Registration Form -->
+            <section class="auth-form-section">
+                <form id="registrationForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Nome Completo *</label>
+                        <input type="text" id="fullName" name="fullName" class="form-input" 
+                               placeholder="Digite seu nome completo" required>
+                        <span class="form-error" id="fullName-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="form-label">Nome de Usuário *</label>
+                        <input type="text" id="username" name="username" class="form-input" 
+                               placeholder="Escolha um nome de usuário" required>
+                        <span class="form-error" id="username-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-mail *</label>
+                        <input type="email" id="email" name="email" class="form-input" 
+                               placeholder="seu@email.com" required>
+                        <span class="form-error" id="email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Telefone</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" 
+                               placeholder="(XX) XXXXX-XXXX">
+                        <span class="form-error" id="phone-error"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="form-label">Senha *</label>
+                            <div class="password-input-container">
+                                <input type="password" id="password" name="password" class="form-input" 
+                                       placeholder="Crie uma senha forte" required>
+                                <button type="button" id="togglePassword" class="password-toggle">
+                                    👁️
+                                </button>
+                            </div>
+                            <span class="form-error" id="password-error"></span>
+                            <div class="password-requirements">
+                                <small>Mínimo 8 caracteres, incluindo letras e números</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirmar Senha *</label>
+                        <div class="password-input-container">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" 
+                                   placeholder="Digite a senha novamente" required>
+                            <button type="button" id="toggleConfirmPassword" class="password-toggle">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="form-error" id="confirmPassword-error"></span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" name="terms" class="checkbox" required>
+                            <span>Li e aceito os <a href="#" class="terms-link">termos de uso</a> e <a href="#" class="terms-link">política de privacidade</a></span>
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter" class="checkbox">
+                            <span>Deseja receber novidades da SKULL BJJ?</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button" id="registerButton">
+                            <span class="button-text">Criar Conta</span>
+                            <span class="button-loading" style="display: none;">⏳</span>
+                        </button>
+                        <button type="button" class="secondary-button" onclick="window.location.href='login.html'">
+                            Já tenho conta
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success/Error Messages -->
+                <div id="registrationMessage" class="auth-message"></div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="auth-footer">
+                <p>Já tem uma conta? <a href="login.html" class="auth-link">Faça login</a></p>
+                <p>&copy; 2024 SKULL BJJ. Todos os direitos reservados.</p>
+            </footer>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="security.js"></script>
+    <script>
+        // Sistema de Registro de Usuários
+        class RegistrationManager {
+            constructor() {
+                this.elements = {};
+                this.init();
+            }
+
+            init() {
+                this.cacheElements();
+                this.bindEvents();
+                this.setupPasswordToggles();
+                this.setupPhoneFormatting();
+            }
+
+            cacheElements() {
+                this.elements = {
+                    form: document.getElementById('registrationForm'),
+                    fullName: document.getElementById('fullName'),
+                    username: document.getElementById('username'),
+                    email: document.getElementById('email'),
+                    phone: document.getElementById('phone'),
+                    password: document.getElementById('password'),
+                    confirmPassword: document.getElementById('confirmPassword'),
+                    terms: document.getElementById('terms'),
+                    newsletter: document.getElementById('newsletter'),
+                    registerButton: document.getElementById('registerButton'),
+                    message: document.getElementById('registrationMessage'),
+                    togglePassword: document.getElementById('togglePassword'),
+                    toggleConfirmPassword: document.getElementById('toggleConfirmPassword')
+                };
+            }
+
+            bindEvents() {
+                if (this.elements.form) {
+                    this.elements.form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleRegistration();
+                    });
+                }
+
+                // Validação em tempo real
+                ['fullName', 'username', 'email', 'password', 'confirmPassword'].forEach(field => {
+                    if (this.elements[field]) {
+                        this.elements[field].addEventListener('input', () => {
+                            this.clearFieldError(field);
+                        });
+                    }
+                });
+            }
+
+            setupPasswordToggles() {
+                if (this.elements.togglePassword) {
+                    this.elements.togglePassword.addEventListener('click', () => {
+                        this.togglePasswordVisibility('password');
+                    });
+                }
+
+                if (this.elements.toggleConfirmPassword) {
+                    this.elements.toggleConfirmPassword.addEventListener('click', () => {
+                        this.togglePasswordVisibility('confirmPassword');
+                    });
+                }
+            }
+
+            setupPhoneFormatting() {
+                if (this.elements.phone) {
+                    this.elements.phone.addEventListener('input', (e) => {
+                        let value = e.target.value.replace(/\D/g, '');
+                        
+                        if (value.length >= 2) {
+                            value = "(" + value.substring(0, 2) + ")";
+                            if (value.length >= 7) {
+                                value += " " + value.substring(2, 7);
+                                if (value.length >= 12) {
+                                    value += "-" + value.substring(7, 11);
+                                }
+                            }
+                        }
+                        
+                        e.target.value = value;
+                    });
+                }
+            }
+
+            togglePasswordVisibility(field) {
+                const input = this.elements[field];
+                const button = this.elements['toggle' + field.charAt(0).toUpperCase() + field.slice(1)];
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    button.textContent = '🙈';
+                    button.setAttribute('aria-label', 'Ocultar senha');
+                } else {
+                    input.type = 'password';
+                    button.textContent = '👁️';
+                    button.setAttribute('aria-label', 'Mostrar senha');
+                }
+            }
+
+            async handleRegistration() {
+                if (!this.validateForm()) {
+                    return;
+                }
+
+                this.setLoadingState(true);
+                this.clearMessage();
+
+                // Coletar dados
+                const userData = {
+                    fullName: this.elements.fullName.value.trim(),
+                    username: this.elements.username.value.trim(),
+                    email: this.elements.email.value.trim(),
+                    phone: this.elements.phone.value.trim(),
+                    password: this.elements.password.value,
+                    newsletter: this.elements.newsletter.checked,
+                    registeredAt: new Date().toISOString()
+                };
+
+                // Sanitizar dados
+                if (window.securityManager) {
+                    Object.keys(userData).forEach(key => {
+                        if (typeof userData[key] === 'string') {
+                            userData[key] = window.securityManager.sanitizer.sanitize(userData[key]);
+                        }
+                    });
+                }
+
+                // Verificar se usuário já existe
+                if (await this.userExists(userData.username, userData.email)) {
+                    this.showMessage('Usuário ou e-mail já cadastrado', 'error');
+                    this.setLoadingState(false);
+                    return;
+                }
+
+                // Gerar hash da senha
+                const passwordHash = await this.hashPassword(userData.password);
+                userData.passwordHash = passwordHash.hash;
+                userData.salt = passwordHash.salt;
+                delete userData.password;
+
+                // Salvar usuário
+                this.saveUser(userData);
+
+                // Sucesso
+                this.showMessage('Conta criada com sucesso! Redirecionando para o login...', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+
+            validateForm() {
+                let isValid = true;
+                this.clearAllErrors();
+
+                // Nome completo
+                if (!this.elements.fullName.value.trim()) {
+                    this.showFieldError('fullName', 'Nome completo é obrigatório');
+                    isValid = false;
+                } else if (this.elements.fullName.value.trim().length < 3) {
+                    this.showFieldError('fullName', 'Nome deve ter pelo menos 3 caracteres');
+                    isValid = false;
+                }
+
+                // Usuário
+                if (!this.elements.username.value.trim()) {
+                    this.showFieldError('username', 'Nome de usuário é obrigatório');
+                    isValid = false;
+                } else if (this.elements.username.value.trim().length < 3) {
+                    this.showFieldError('username', 'Usuário deve ter pelo menos 3 caracteres');
+                    isValid = false;
+                } else if (!/^[a-zA-Z0-9_]+$/.test(this.elements.username.value.trim())) {
+                    this.showFieldError('username', 'Usuário deve conter apenas letras, números e _');
+                    isValid = false;
+                }
+
+                // Email
+                if (!this.elements.email.value.trim()) {
+                    this.showFieldError('email', 'E-mail é obrigatório');
+                    isValid = false;
+                } else if (!this.validateEmail(this.elements.email.value.trim())) {
+                    this.showFieldError('email', 'E-mail inválido');
+                    isValid = false;
+                }
+
+                // Senha
+                if (!this.elements.password.value) {
+                    this.showFieldError('password', 'Senha é obrigatória');
+                    isValid = false;
+                } else if (this.elements.password.value.length < 8) {
+                    this.showFieldError('password', 'Senha deve ter pelo menos 8 caracteres');
+                    isValid = false;
+                } else if (!this.validatePasswordStrength(this.elements.password.value)) {
+                    this.showFieldError('password', 'Senha deve conter letras e números');
+                    isValid = false;
+                }
+
+                // Confirmar senha
+                if (!this.elements.confirmPassword.value) {
+                    this.showFieldError('confirmPassword', 'Confirmação de senha é obrigatória');
+                    isValid = false;
+                } else if (this.elements.password.value !== this.elements.confirmPassword.value) {
+                    this.showFieldError('confirmPassword', 'Senhas não conferem');
+                    isValid = false;
+                }
+
+                // Termos
+                if (!this.elements.terms.checked) {
+                    this.showMessage('Você precisa aceitar os termos de uso', 'error');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            validatePasswordStrength(password) {
+                const hasLetter = /[a-zA-Z]/.test(password);
+                const hasNumber = /\d/.test(password);
+                return hasLetter && hasNumber;
+            }
+
+            async hashPassword(password) {
+                if (window.securityManager && window.securityManager.cryptographer) {
+                    return await window.securityManager.cryptographer.hashPassword(password);
+                }
+
+                // Fallback
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                
+                return {
+                    hash: hashHex,
+                    salt: 'default_salt'
+                };
+            }
+
+            async userExists(username, email) {
+                const users = this.getUsers();
+                return users.some(user => user.username === username || user.email === email);
+            }
+
+            getUsers() {
+                const usersJson = localStorage.getItem('registered_users');
+                return usersJson ? JSON.parse(usersJson) : [];
+            }
+
+            saveUser(userData) {
+                const users = this.getUsers();
+                users.push(userData);
+                localStorage.setItem('registered_users', JSON.stringify(users));
+            }
+
+            showFieldError(field, message) {
+                const errorElement = document.getElementById(field + '-error');
+                const inputElement = document.getElementById(field);
+                
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
+                
+                if (inputElement) {
+                    inputElement.classList.add('error');
+                }
+            }
+
+            clearFieldError(field) {
+                const errorElement = document.getElementById(field + '-error');
+                const inputElement = document.getElementById(field);
+                
+                if (errorElement) {
+                    errorElement.textContent = '';
+                    errorElement.style.display = 'none';
+                }
+                
+                if (inputElement) {
+                    inputElement.classList.remove('error');
+                }
+            }
+
+            clearAllErrors() {
+                ['fullName', 'username', 'email', 'password', 'confirmPassword'].forEach(field => {
+                    this.clearFieldError(field);
+                });
+            }
+
+            showMessage(message, type) {
+                if (this.elements.message) {
+                    this.elements.message.textContent = message;
+                    this.elements.message.className = `auth-message ${type}`;
+                    this.elements.message.style.display = 'block';
+                }
+            }
+
+            clearMessage() {
+                if (this.elements.message) {
+                    this.elements.message.textContent = '';
+                    this.elements.message.className = 'auth-message';
+                    this.elements.message.style.display = 'none';
+                }
+            }
+
+            setLoadingState(isLoading) {
+                const button = this.elements.registerButton;
+                const buttonText = button.querySelector('.button-text');
+                const loadingIcon = button.querySelector('.button-loading');
+                
+                if (isLoading) {
+                    button.disabled = true;
+                    buttonText.style.display = 'none';
+                    loadingIcon.style.display = 'inline';
+                } else {
+                    button.disabled = false;
+                    buttonText.style.display = 'inline';
+                    loadingIcon.style.display = 'none';
+                }
+            }
+        }
+
+        // Inicializar sistema de registro
+        document.addEventListener('DOMContentLoaded', () => {
+            window.registrationManager = new RegistrationManager();
+        });
+    </script>
+</body>
+</html>
